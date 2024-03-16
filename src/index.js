@@ -2,18 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import HomePage from "./components/Homepage";
-import Header from "./components/Header";
-import FlowerAuction from "./components/FlowerAuction";
-import Background from "./components/Background";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
+import { NextUIProvider } from "@nextui-org/react";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <NextUIProvider>
+        <App />
+      </NextUIProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
