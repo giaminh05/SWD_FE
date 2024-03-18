@@ -121,7 +121,7 @@ const Edit = () => {
       <Container>
         <Card variant="outlined" sx={{ p: 5, my: 5 }}>
           <form onSubmit={formik.handleSubmit}>
-            <Typography variant="h4">Edit Student Form:</Typography>
+            <Typography variant="h4">Edit Account Form:</Typography>
             <TextField
               fullWidth
               id="image"
