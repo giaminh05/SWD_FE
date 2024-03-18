@@ -50,7 +50,7 @@ function Dashboard() {
 
                 <div className="flex flex-col items-start justify-center gap-1">
                   <h5 className="text-sm tracking-tight text-default-600">
-                    Tổng Lượt Xem
+                    Tổng Lượt Truy Cập
                   </h5>
                   <h4 className="text-lg font-semibold leading-none text-default-600">
                     128.036.108
@@ -74,10 +74,10 @@ function Dashboard() {
 
                 <div className="flex flex-col items-start justify-center gap-1">
                   <h5 className="text-sm tracking-tight text-default-600">
-                    Số Lượng Phim
+                    Số Lượng Lan
                   </h5>
                   <h4 className="text-lg font-semibold leading-none text-default-600">
-                    7.049
+                    553
                   </h4>
                 </div>
               </div>
@@ -110,12 +110,12 @@ function Dashboard() {
         </div>
       </div>
 
-      <div className="flex m-4">
+      <div className="chart">
         <PieChart />
         <LineChart />
       </div>
 
-      <div className="">
+      <div className="barchart">
         <BarChart />
       </div>
     </div>

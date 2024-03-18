@@ -22,7 +22,7 @@ export function PieChart() {
         ],
       },
       {
-        label: "Tổng Số Phim",
+        label: "Tổng Số Lượng Giao Dịch",
         data: pieData.map((data) => data.amount),
         backgroundColor: [
           "rgba(75,192,192,1)",
@@ -60,7 +60,7 @@ export function PieChart() {
     <Card className="max-w-[450px] ">
       <CardHeader className="flex-wrap">
         <p className="w-full font-semibold text-md">
-          Biểu đồ tỉ suất lượt xem và tổng số phim của các thể loại phim
+          Biểu đồ tỉ suất lượt xem và giao dịch của các loại lan
         </p>
         <p className="text-md text-slate-500"></p>
       </CardHeader>

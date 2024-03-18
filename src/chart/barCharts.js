@@ -26,27 +26,27 @@ export function BarChart() {
     labels: barData.map((data) => data.month),
     datasets: [
       {
-        label: "Hành động",
+        label: "Lan 1",
         data: barData.map((data) => data.viewhd),
         backgroundColor: ["rgba(75,192,192,1)"],
       },
       {
-        label: "Tình cảm",
+        label: "Lan 2",
         data: barData.map((data) => data.viewtc),
         backgroundColor: ["#FFB6C1"],
       },
       {
-        label: "Kinh dị",
+        label: "Lan 3",
         data: barData.map((data) => data.viewkd),
         backgroundColor: ["#DA70D6"],
       },
       {
-        label: "Hài hước",
+        label: "Lan 4",
         data: barData.map((data) => data.viewhh),
         backgroundColor: ["#f3ba2f"],
       },
       {
-        label: "Khác",
+        label: "Lan 5",
         data: barData.map((data) => data.viewkhac),
         backgroundColor: ["#DDDDDD"],
       },
@@ -71,9 +71,8 @@ export function BarChart() {
     <Card className="max-w-full h-[700px]">
       <CardHeader className="flex-wrap">
         <p className="w-full text-lg font-semibold">
-          Biểu đồ lượt xem của các thể loại phim
+          Biểu đồ lượt giao dịch các loại lan từ tháng 1 - tháng 12
         </p>
-        <p className="text-md text-slate-500">Từ tháng 1 - tháng 12</p>
       </CardHeader>
       <Divider />
       <CardBody>

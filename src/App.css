@@ -178,3 +178,13 @@
 .text-3xl {
   font-size: 1.875rem;
 }
+
+.chart{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.barchart{
+  justify-content: center; 
+  width: 1000px;
+}
