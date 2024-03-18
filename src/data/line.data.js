@@ -1,5 +1,3 @@
-import React from "react";
-
 const lineData = [
   {
     id: 1,

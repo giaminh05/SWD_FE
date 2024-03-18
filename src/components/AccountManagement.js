@@ -79,10 +79,12 @@ const AccountManagement = () => {
     setDeleteId(null);
   };
 
+
+
   return (
     <Container sx={{ my: 5, minHeight: "75vh" }}>
       <TableContainerStyled component={Paper}>
-        <Box
+        <Box 
           sx={{
             p: 2,
             display: "flex",
@@ -104,10 +106,10 @@ const AccountManagement = () => {
               <TableCell>ID</TableCell>
               <TableCell align="left">Image</TableCell>
               <TableCell align="left">Name</TableCell>
-              <TableCell align="left">Date of birth</TableCell>
-              <TableCell align="left">Gender</TableCell>
-              <TableCell align="left">Class</TableCell>
-              <TableCell align="left">Feedback</TableCell>
+              <TableCell align="left">Email</TableCell>
+              <TableCell align="left">Phone</TableCell>
+              <TableCell align="left">Address</TableCell>
+              <TableCell align="left">Role</TableCell>
               <TableCell align="left">Action</TableCell>
             </TableRow>
           </TableHead>
@@ -126,12 +128,10 @@ const AccountManagement = () => {
                   <Avatar alt={row.name} src={row.image} />
                 </TableCell>
                 <TableCell align="left">{row.name}</TableCell>
-                <TableCell align="left">{row.dateofbirth}</TableCell>
-                <TableCell align="left">
-                  {row.gender ? "Male" : "Female"}
-                </TableCell>
-                <TableCell align="left">{row.class}</TableCell>
-                <TableCell align="left">{row.feedback}</TableCell>
+                <TableCell align="left">{row.email}</TableCell>
+                <TableCell align="left">{row.phone}</TableCell>
+                <TableCell align="left">{row.address}</TableCell>
+                <TableCell align="left">{row.role}</TableCell>
                 <TableCell align="left">
                   <Button onClick={() => handleEditStudent(row.id)}>
                     Edit

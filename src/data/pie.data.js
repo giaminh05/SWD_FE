@@ -1,5 +1,3 @@
-import React from "react";
-
 export const pieData = [
   {
     id: 1,

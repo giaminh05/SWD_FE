@@ -35,13 +35,16 @@ const Header = () => {
     signUpButton: {
       order: 2,
     },
+    box: {
+      color: "#FF4949", // Change color to #FF4949
+    },
   };
 
   return (
-    <div clasName="box">
-      <Box clasName="box">
-        <AppBar position="static" clasName="box">
-          <Toolbar clasName="box">
+    <div className="box">
+      <Box className="box" sx={styles.box}>
+        <AppBar position="static" className="box">
+          <Toolbar className="box">
             <Button color="inherit" component={Link} to="/">
               Home
             </Button>
