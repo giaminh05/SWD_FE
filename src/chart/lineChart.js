@@ -44,9 +44,8 @@ export function LineChart() {
     <Card className="w-full ml-6">
       <CardHeader className="flex-wrap">
         <p className="w-full font-semibold text-md">
-          Biểu đồ số lượng truy cập trang web
+          Biểu đồ số lượng truy cập trang web từ tháng 1 - tháng 12
         </p>
-        <p className="text-md text-slate-500">Từ tháng 1 - tháng 12</p>
       </CardHeader>
       <Divider />
       <CardBody>

@@ -188,3 +188,7 @@
   justify-content: center; 
   width: 1000px;
 }
+
+.box{
+  background-color: #FF4949 !important;
+}
