@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Menu, Row, Col, Modal } from "antd";
 import Login from "./Login";
-import SignUp from "./SignUp";
-import SignIn from "./Login";
 import { Link } from "react-router-dom";
-import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
-import "../App.css";
+import { AppBar, Box, Button, Toolbar, Typography, IconButton, Menu as MuiMenu, MenuItem } from '@mui/material';
+import { Notifications as NotificationsIcon, Logout as LogoutIcon, Settings as SettingsIcon, Person as PersonIcon } from '@mui/icons-material';
+
 const { Item } = Menu;
 
 const Header = () => {
   const [signInModalVisible, setSignInModalVisible] = useState(false);
   const [signUpModalVisible, setSignUpModalVisible] = useState(false);
+  const [user, setUser] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   const handleSignInClick = () => {
     setSignInModalVisible(true);
@@ -28,6 +36,19 @@ const Header = () => {
     setSignUpModalVisible(false);
   };
 
+  const handleUserMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleUserMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+  };
+
   const styles = {
     signInButton: {
       order: 1,
@@ -35,8 +56,15 @@ const Header = () => {
     signUpButton: {
       order: 2,
     },
+    userButton: {
+      order: 3,
+      marginLeft: "10px",
+    },
     box: {
-      color: "#FF4949", // Change color to #FF4949
+      color: "#FF4949",
+    },
+    notificationIcon: {
+      marginRight: "10px",
     },
   };
 
@@ -48,7 +76,6 @@ const Header = () => {
             <Button color="inherit" component={Link} to="/">
               Home
             </Button>
-
             <Button color="inherit" component={Link} to="/category">
               Category
             </Button>
@@ -58,30 +85,47 @@ const Header = () => {
             <Button color="inherit" component={Link} to="/account">
               Account
             </Button>
-            <Button
-              type="primary"
-              style={{
-                backgroundColor: "#FFFFFF",
-                color: "#FF4949",
-                ...styles.signInButton,
-                marginLeft: "1000px",
-              }}
-              onClick={handleSignInClick}
-            >
-              SignIn
-            </Button>
-            <Button
-              type="default"
-              style={{
-                backgroundColor: "#FF4949",
-                color: "#FFFFFF",
-                marginLeft: "10px",
-                ...styles.signUpButton,
-              }}
-              onClick={handleSignUpClick}
-            >
-              SignUp
-            </Button>
+            <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
+
+              {!user ? (
+                <>
+                  <Button color="inherit" onClick={handleSignInClick}>
+                    SignIn
+                  </Button>
+                  <Button color="inherit" onClick={handleSignUpClick}>
+                    SignUp
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <MuiMenu
+                    id="user-menu"
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={handleUserMenuClose}
+                    MenuListProps={{
+                      'aria-labelledby': 'user-menu-button',
+                    }}
+                  >
+                    <MenuItem onClick={handleUserMenuClose}>
+                      <PersonIcon />
+                      ({user.email})
+                    </MenuItem>
+                    <MenuItem onClick={handleLogout}>
+                      <LogoutIcon />
+                      Logout
+                    </MenuItem>
+                    <MenuItem onClick={handleUserMenuClose}>
+                      <SettingsIcon />
+                      Settings
+                    </MenuItem>
+                  </MuiMenu>
+                  <Button onClick={handleUserMenuClick} color="inherit">
+                    {user.email[0].toUpperCase()}
+                  </Button>
+                </>
+              )}
+            </Box>
           </Toolbar>
         </AppBar>
       </Box>
@@ -99,7 +143,6 @@ const Header = () => {
         onCancel={handleSignUpModalCancel}
         footer={null}
       >
-        <SignUp />
       </Modal>
     </div>
   );
