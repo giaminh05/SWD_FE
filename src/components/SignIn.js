@@ -1,94 +1,38 @@
-// import React, { useState } from 'react';
-// import { Form, Input, Button, message } from 'antd';
-// import SignUp from './SignUp';
-
-// const SignIn = ({ closeModal }) => {
-//   const [loading, setLoading] = useState(false);
-//   const [showSignUp, setShowSignUp] = useState(false);
-
-//   const onFinish = (values) => {
-//     setLoading(true);
-//     // Simulate login process (Replace with your actual login logic)
-//     setTimeout(() => {
-//       setLoading(false);
-//       message.success('Login successful!');
-//       closeModal();
-//     }, 2000);
-//   };
-
-//   const onFinishFailed = (errorInfo) => {
-//     console.log('Failed:', errorInfo);
-//   };
-
-//   const handleLoginClick = () => {
-//     // Code to handle login action
-//     // You can call `onFinish` function here if needed
-//   };
-
-//   const handleSignUpClick = () => {
-//     setShowSignUp(true); // Hiển thị SignUp component khi nhấp vào nút SignUp
-//   };
-
-//   const handleBackToSignIn = () => {
-//     setShowSignUp(false); // Hiển thị SignIn component khi nhấp vào nút Back to SignIn
-//   };
-
-//   return (
-//     <>
-//       {!showSignUp ? (
-//         <Form
-//           name="basic"
-//           onFinish={onFinish}
-//           onFinishFailed={onFinishFailed}
-//         >
-//           <Form.Item
-//             label="Username"
-//             name="username"
-//             rules={[{ required: true, message: 'Please input your username!' }]}
-//           >
-//             <Input />
-//           </Form.Item>
-
-//           <Form.Item
-//             label="Password"
-//             name="password"
-//             rules={[{ required: true, message: 'Please input your password!' }]}
-//           >
-//             <Input.Password />
-//           </Form.Item>
-
-//           <Form.Item>
-//             <Button type="primary" htmlType="submit" loading={loading}>
-//               Login
-//             </Button>
-//             {/* <Button type="primary" onClick={handleSignUpClick}>SignUp</Button> */}
-//           </Form.Item>
-//         </Form>
-//       ) : (
-//         <SignUp closeModal={closeModal} handleBackToSignIn={handleBackToSignIn} />
-//       )}
-//     </>
-//   );
-// };
-
-// export default SignIn;
-
 import React, { useState } from 'react';
 import { Form, Input, Button, message, Row, Col } from 'antd';
 import SignUp from './SignUp';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useUserContext } from '../contexts/UserContext'; // Ensure this path is correct
 
 const SignIn = ({ closeModal }) => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
+  const { setUser } = useUserContext(); 
 
-  const onFinish = (values) => {
+
+  const onFinish = async (values) => {
     setLoading(true);
-    // Simulate login process (Replace with your actual login logic)
-    setTimeout(() => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/accounts/auth', values);
+      if (response.status === 201) {
+        setLoading(false);
+        message.success('Login successful!');
+  
+        // Save user data to localStorage
+        localStorage.setItem('user', JSON.stringify({ email: values.email }));
+        setUser({ email: values.email });
+        setShowSignUp(false);
+        navigate('/');
+      } else {
+        setLoading(false);
+        message.error('Unexpected status code: ' + response.status);
+      }
+    } catch (error) {
       setLoading(false);
-      message.success('Login successful!');
-      closeModal();
-    }, 2000);
+      message.error('Error: ' + error.message);
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -101,11 +45,11 @@ const SignIn = ({ closeModal }) => {
   };
 
   const handleSignUpClick = () => {
-    setShowSignUp(true); // Display SignUp component when SignUp button is clicked
+    setShowSignUp(true);
   };
 
   const handleBackToSignIn = () => {
-    setShowSignUp(false); // Display SignIn component when Back to SignIn button is clicked
+    setShowSignUp(false); 
   };
 
   return (
@@ -117,10 +61,10 @@ const SignIn = ({ closeModal }) => {
           onFinishFailed={onFinishFailed}
         >
           <Form.Item
-            name="username"
-            rules={[{ required: true, message: 'Please input your username!' }]}
+            name="email"
+            rules={[{ required: true, message: 'Please input your email!' }]}
           >
-            <Input placeholder="Username" />
+            <Input placeholder="Email" />
           </Form.Item>
 
           <Form.Item
@@ -134,7 +78,7 @@ const SignIn = ({ closeModal }) => {
             <Row justify="center">
               <Col>
                 <Button type="primary" htmlType="submit" loading={loading} style={{ marginRight: 10 }}>
-                  Login
+                  LogIn
                 </Button>
               </Col>
               <Col>

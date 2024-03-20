@@ -5,16 +5,21 @@ import Header from "./components/Header";
 import AccountManagement from "./components/AccountManagement";
 import Add from "./components/Add";
 import Edit from "./components/Edit";
+// import HomePage from "./components/Homepage";
+import { UserProvider } from './contexts/UserContext';
+
 function App() {
   return (
     <div className="App">
-      <Header />
-      <Routes>
-        <Route path="/account" element={<AccountManagement />}></Route>
-        <Route path="/" element={<FlowerAuction />}></Route>
-        <Route path="/add" element={<Add />}></Route>
-        <Route path="/edit/:_id" element={<Edit />}></Route>
-      </Routes>
+      <UserProvider>
+        <Header />
+        <Routes>
+          <Route path="/account" element={<AccountManagement />}></Route>
+          <Route path="/" element={<FlowerAuction />}></Route>
+          <Route path="/add" element={<Add />}></Route>
+          <Route path="/edit/:id" element={<Edit />}></Route>
+        </Routes>
+      </UserProvider>
     </div>
   );
 }

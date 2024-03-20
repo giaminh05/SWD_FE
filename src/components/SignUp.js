@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, message, Row, Col } from 'antd';
+import axios from 'axios';
 
 const SignUp = ({ closeModal, handleBackToSignIn }) => {
   const [loading, setLoading] = useState(false);
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     setLoading(true);
-    // Simulate sign up process (Replace with your actual sign up logic)
-    setTimeout(() => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/accounts/', values);
       setLoading(false);
       message.success('Sign Up successful!');
       closeModal();
-    }, 2000);
+    } catch (error) {
+      setLoading(false);
+      message.error(error.response.data.message);
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -28,7 +32,7 @@ const SignUp = ({ closeModal, handleBackToSignIn }) => {
       >
         <Form.Item
           name="username"
-          rules={[{ required: true, message: 'Please input your username!' }]}
+          rules={[{ required: true, message: 'Please input your Full Name!' }]}
         >
           <Input placeholder="Username" />
         </Form.Item>
@@ -45,6 +49,27 @@ const SignUp = ({ closeModal, handleBackToSignIn }) => {
           rules={[{ required: true, message: 'Please input your password!' }]}
         >
           <Input.Password placeholder="Password" />
+        </Form.Item>
+
+        <Form.Item
+          name="phone"
+          rules={[{ required: true, message: 'Please input your phone number!' }]}
+        >
+          <Input placeholder="Phone Number" />
+        </Form.Item>
+
+        <Form.Item
+          name="address"
+          rules={[{ required: true, message: 'Please input your address!' }]}
+        >
+          <Input.TextArea placeholder="Address" />
+        </Form.Item>
+
+        <Form.Item
+          name="avatar"
+          rules={[{ required: true, message: 'Please input your avatar URL!' }]}
+        >
+          <Input placeholder="Avatar URL" />
         </Form.Item>
 
         <Form.Item>
@@ -67,8 +92,3 @@ const SignUp = ({ closeModal, handleBackToSignIn }) => {
 };
 
 export default SignUp;
-
-
-
-
-
