@@ -13,7 +13,7 @@ function App() {
         <Route path="/account" element={<AccountManagement />}></Route>
         <Route path="/" element={<FlowerAuction />}></Route>
         <Route path="/add" element={<Add />}></Route>
-        <Route path="/edit/:id" element={<Edit />}></Route>
+        <Route path="/edit/:_id" element={<Edit />}></Route>
       </Routes>
     </div>
   );

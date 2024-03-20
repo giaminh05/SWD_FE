@@ -34,8 +34,8 @@ const AccountManagement = () => {
   const [data, setData] = useState([]);
   const [deleteId, setDeleteId] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
-  const baseUrl =
-    "https://65e0228bd3db23f762485c66.mockapi.io/studentManagement";
+  const baseUrl = "http://localhost:5000/api/accounts";
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -52,12 +52,12 @@ const AccountManagement = () => {
   const handleAddStudent = () => {
     navigate("/add");
   };
-  const handleEditStudent = (id) => {
-    navigate(`/edit/${id}`);
+  const handleEditStudent = (_id) => {
+    navigate(`/edit/${_id}`);
   };
 
-  const handleDeleteConfirmation = (id) => {
-    setDeleteId(id);
+  const handleDeleteConfirmation = (_id) => {
+    setDeleteId(_id);
     setOpenDialog(true);
   };
 
@@ -67,7 +67,7 @@ const AccountManagement = () => {
         method: "DELETE",
       });
       setOpenDialog(false);
-      const newData = data.filter((item) => item.id !== deleteId);
+      const newData = data.filter((item) => item._id !== deleteId);
       setData(newData);
     } catch (error) {
       console.log("error", error);
@@ -79,12 +79,10 @@ const AccountManagement = () => {
     setDeleteId(null);
   };
 
-
-
   return (
     <Container sx={{ my: 5, minHeight: "75vh" }}>
       <TableContainerStyled component={Paper}>
-        <Box 
+        <Box
           sx={{
             p: 2,
             display: "flex",
@@ -103,7 +101,6 @@ const AccountManagement = () => {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
               <TableCell align="left">Image</TableCell>
               <TableCell align="left">Name</TableCell>
               <TableCell align="left">Email</TableCell>
@@ -116,29 +113,26 @@ const AccountManagement = () => {
           <TableBody>
             {data.map((row) => (
               <TableRow
-                key={row.id}
+                key={row._id}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
                 }}
               >
-                <TableCell component="th" scope="row">
-                  {row.id}
-                </TableCell>
                 <TableCell align="left">
-                  <Avatar alt={row.name} src={row.image} />
+                  <Avatar alt={row.username} src={row.avatar} />
                 </TableCell>
-                <TableCell align="left">{row.name}</TableCell>
+                <TableCell align="left">{row.username}</TableCell>
                 <TableCell align="left">{row.email}</TableCell>
                 <TableCell align="left">{row.phone}</TableCell>
                 <TableCell align="left">{row.address}</TableCell>
                 <TableCell align="left">{row.role}</TableCell>
                 <TableCell align="left">
-                  <Button onClick={() => handleEditStudent(row.id)}>
+                  <Button onClick={() => handleEditStudent(row._id)}>
                     Edit
                   </Button>
                   <Button
                     color="error"
-                    onClick={() => handleDeleteConfirmation(row.id)}
+                    onClick={() => handleDeleteConfirmation(row._id)}
                   >
                     Delete
                   </Button>

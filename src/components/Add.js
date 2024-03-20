@@ -36,14 +36,13 @@ const Wrap = styled("div")({
 });
 
 const AddComponent = () => {
-  const baseUrl =
-    "https://65e0228bd3db23f762485c66.mockapi.io/studentManagement";
+  const baseUrl = "http://localhost:5000/api/accounts";
 
   const validationSchema = Yup.object({
-    name: Yup.string()
+    username: Yup.string()
       .min(2, "Name must be at least 2 characters")
       .required("Name is required"),
-    image: Yup.string()
+    avatar: Yup.string()
       .url("Image must be a valid URL")
       .required("Image is required"),
     phone: Yup.number()
@@ -60,8 +59,8 @@ const AddComponent = () => {
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      image: "",
+      username: "",
+      avatar: "",
       email: "",
       phone: "",
       address: "",
@@ -100,34 +99,34 @@ const AddComponent = () => {
             <Typography variant="h4">Add Account Form:</Typography>
             <TextField
               fullWidth
-              id="image"
-              name="image"
-              label="Image URL"
-              value={formik.values.image}
+              id="avatar"
+              name="avatar"
+              label="Avatar URL"
+              value={formik.values.avatar}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched.image && Boolean(formik.errors.image)}
-              helperText={formik.touched.image && formik.errors.image}
+              error={formik.touched.avatar && Boolean(formik.errors.avatar)}
+              helperText={formik.touched.avatar && formik.errors.avatar}
               sx={{ pb: 2 }}
               InputLabelProps={{
                 sx: { fontSize: "1rem", pb: 1 },
               }}
             />
-            {formik.values.image && (
+            {formik.values.avatar && (
               <Wrap>
-                <Image src={formik.values.image} alt="User's image" />
+                <Image src={formik.values.avatar} alt="User's image" />
               </Wrap>
             )}
             <TextField
               fullWidth
-              id="name"
-              name="name"
+              id="username"
+              name="username"
               label="Name"
-              value={formik.values.name}
+              value={formik.values.username}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched.name && Boolean(formik.errors.name)}
-              helperText={formik.touched.name && formik.errors.name}
+              error={formik.touched.username && Boolean(formik.errors.username)}
+              helperText={formik.touched.username && formik.errors.username}
               sx={{ pb: 2 }}
               InputLabelProps={{
                 sx: { fontSize: "1rem", pb: 1 },

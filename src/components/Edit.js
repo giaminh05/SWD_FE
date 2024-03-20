@@ -37,15 +37,14 @@ const Wrap = styled("div")({
 });
 
 const Edit = () => {
-  const { id } = useParams();
-  const baseUrl =
-    "https://65e0228bd3db23f762485c66.mockapi.io/studentManagement";
+  const { _id } = useParams();
+  const baseUrl = "http://localhost:5000/api/accounts";
 
   const validationSchema = Yup.object({
-    name: Yup.string()
+    username: Yup.string()
       .min(2, "Name must be at least 2 characters")
       .required("Name is required"),
-    image: Yup.string()
+    avatar: Yup.string()
       .url("Image must be a valid URL")
       .required("Image is required"),
     phone: Yup.number()
@@ -62,8 +61,8 @@ const Edit = () => {
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      image: "",
+      username: "",
+      avatar: "",
       email: "",
       phone: "",
       address: "",
@@ -71,7 +70,7 @@ const Edit = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      fetch(`${baseUrl}/${id}`, {
+      fetch(`${baseUrl}/${_id}`, {
         method: "PUT",
         body: JSON.stringify(values),
         headers: {
@@ -97,14 +96,14 @@ const Edit = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${baseUrl}/${id}`);
+        const response = await fetch(`${baseUrl}/${_id}`);
         if (!response.ok) {
           throw new Error(`HTTP Status: ${response.status}`);
         }
         const data = await response.json();
         formik.setValues({
-          name: data.name,
-          image: data.image,
+          username: data.username,
+          avatar: data.avatar,
           email: data.email,
           phone: data.phone,
           address: data.address,
@@ -115,7 +114,7 @@ const Edit = () => {
       }
     };
     fetchData();
-  }, [baseUrl, id]);
+  }, [baseUrl, _id]);
   return (
     <div>
       <Container>
@@ -124,34 +123,34 @@ const Edit = () => {
             <Typography variant="h4">Edit Account Form:</Typography>
             <TextField
               fullWidth
-              id="image"
-              name="image"
-              label="Image URL"
-              value={formik.values.image}
+              id="avatar"
+              name="avatar"
+              label="avatar"
+              value={formik.values.avatar}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched.image && Boolean(formik.errors.image)}
-              helperText={formik.touched.image && formik.errors.image}
+              error={formik.touched.avatar && Boolean(formik.errors.avatar)}
+              helperText={formik.touched.avatar && formik.errors.avatar}
               sx={{ pb: 2 }}
               InputLabelProps={{
                 sx: { fontSize: "1rem", pb: 1 },
               }}
             />
-            {formik.values.image && (
+            {formik.values.avatar && (
               <Wrap>
-                <Image src={formik.values.image} alt="User's image" />
+                <Image src={formik.values.avatar} alt="User's image" />
               </Wrap>
             )}
             <TextField
               fullWidth
-              id="name"
-              name="name"
+              id="username"
+              name="username"
               label="Name"
-              value={formik.values.name}
+              value={formik.values.username}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched.name && Boolean(formik.errors.name)}
-              helperText={formik.touched.name && formik.errors.name}
+              error={formik.touched.username && Boolean(formik.errors.username)}
+              helperText={formik.touched.username && formik.errors.username}
               sx={{ pb: 2 }}
               InputLabelProps={{
                 sx: { fontSize: "1rem", pb: 1 },
